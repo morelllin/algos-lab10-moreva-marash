@@ -18,69 +18,36 @@
 
 <img src="./.repo/todo.png" />
 
-## Теория
-
-[Документация](https://metanit.com/python/tkinter/2.12.php)
-
-**Listbox** — это виджет в tkinter, который отображает список элементов. Пользователь может добавлять, выбирать и удалять элементы.
-
-### Создание Listbox
-
-```python
-listbox = tk.Listbox(root, width=30, height=5)
-listbox.pack(pady=10)
-```
-
-### Добавление элементов
-
-```python
-listbox.insert(tk.END, "Элемент 1")
-listbox.insert(tk.END, "Элемент 2")
-listbox.insert(tk.END, "Элемент 3")
-
-root.mainloop()
-```
-
-- _listbox = tk.Listbox(root, width=30, height=5)_ — создаёт список.
-- _listbox.insert(tk.END, "Элемент")_ — добавляет элемент в конец списка.
-
-### Выбор элемента в Listbox
-
-Можно получить выделенный элемент с помощью curselection().
-
-```python
-def get_selected():
-    selected = listbox.curselection()
-    if selected:
-        print("Выбрано:", listbox.get(selected[0]))
-
-select_button = tk.Button(root, text="Выбрать", command=get_selected)
-select_button.pack()
-```
-
-- _curselection()_ возвращает список индексов выделенных элементов.
-- _get(index)_ возвращает текст элемента по индексу.
-
-## Удаление элементов из Listbox
-
-Удалить можно по индексу или все элементы сразу.
-
-### Удаление выбранного элемента:
-
-```python
+import tkinter as tk
+root = tk.Tk() 
+root.geometry("700x400")
+root.title("ПАША ТЕХНИК УМЕР") 
 def delete_selected():
     selected = listbox.curselection()
     if selected:
         listbox.delete(selected[0])
+def delete_all():
+        listbox.delete(0, tk.END)
+def add():
+    if textbox.get():
+        listbox.insert(0, textbox.get())
 
+label = tk.Label(root, text="100 дел которые надо сделать до конца жизни", font=("Arial", 18)) 
+label.pack(padx=20, pady=20,)
+textbox = tk.Entry(root, font=("Arial", 16), bg="#1E90FF")
+textbox.pack()         
+select_button = tk.Button(root, text="Добавить", command=add)
+select_button.pack()
+listbox = tk.Listbox(root, width=30, height=5)
+listbox.pack(pady=10)
+listbox.insert(tk.END, "встать с кровати")
+listbox.insert(tk.END, "почистить зубы")
+listbox.insert(tk.END, "выучить питон с нуля за 8 часов")
+listbox.insert(tk.END, "не покупать маленькой пиво")
+listbox.insert(tk.END, "cходить на любимую алгоритмизацию")
 delete_button = tk.Button(root, text="Удалить", command=delete_selected)
 delete_button.pack()
-```
+deleteall_button = tk.Button(root, text="Удалить всё", command=delete_all)
+deleteall_button.pack()
 
-_Если ничего не выбрано, код ничего не делает._
-
-### Очистка всего списка:
-
-```python
-listbox.delete(0, tk.END)
-```
+root.mainloop()
